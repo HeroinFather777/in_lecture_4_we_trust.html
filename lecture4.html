@@ -11,12 +11,15 @@
        h2{
         font-size: 30px;
       }
+      .code{
+          
+      }
     </style>
   </header>
   <body>
     <h1><center><p><b>What is Sass? Your guide to this top CSS preprocessor</b></p></center></h1>
      <p><i>By Tammy Coron January 10, 2020</i></p>
-     <h2></h2><center>Discover what Sass is, and learn how to start using it.</center>
+     <p style="font-size:30px;text-align:center">Discover what Sass is, and learn how to start using it..</p>
      <p><i><b>What is Sass? That's the question we here to answer. If you're new to web design, you've probably heard the term floating around, but you might not be quite up to speed with exactly what Sass is, what is does, and whether or not you should be using it. In short, Sass is a CSS preprocessor, which adds special features such as variables, nested rules and mixins (sometimes referred to as syntactic sugar) into regular CSS. The aim is to make the coding process simpler and more efficient. Let's explore in more detail.</b></i></p>
     <p><i><b> Article source: <a class="source-link" href="https://www.creativebloq.com/web-design/what-is-sass-111517618">https://www.creativebloq.com/web-design/what-is-sass-111517618</a></p></i></b>
     <h2>What is a CSS preprocessor?</h2>
@@ -38,9 +41,120 @@ How to use Sass</p>
 <p>Just like other programming languages, Sass allows the use of variables that can store information you can use throughout your style sheet. For example, you can store a colour value in a variable at the top of the file, and then use this variable when setting the colour of your elements. This enables you to quickly change your colours without having to modify each line separately.</p>
 
 <p><b>For example:</b></p>
-<p><i>$font-stack:    Helvetica, sans-serif;
-$primary-color: #333;
+<p><i>$font-stack: &nbsp &nbsp Helvetica,serif;<br>$prima-color: #333;</i></p>
+<p><i>body {<br>&nbsp font:100% Helvetica, sans-serif;<br>&nbspcolor: #333;<br>}</i></p>
 
-</i></p>
+<h3>Nesting</h3>
+<p>Nesting is a double-edged sword. While it provides an excellent method for reducing the amount of code you need to write, it can also lead to over-qualified CSS if not executed carefully. The idea is to nest your CSS selectors in such a way as to mimic your HTML hierarchy.</p>
+The following shows a basic navigation style that uses nesting:
+<pre><i>
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li { display: inline-block; }
+
+  a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+}
+   </i></pre>
+<p><b>The CSS output is as follows:</b></p>
+ <i><pre>
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+    </pre></i>
+    
+<h2>Partials</h2>
+
+<p>Partials are smaller Sass files that can be imported (see next section) into other Sass files. Think of partials as code snippets. With these code snippets, your CSS can now be modular and easier to maintain. A partial is designated as such by naming it with a leading underscore: _partial.scss. Import<br><br>
+
+Used with Partials (see previous section), the @import directive allows you to import your partial files into the current file, to build one single CSS file. Be mindful of how many imports you're using as an HTTP request will be generated for each one.
+</p>
+
+  <pre><code>
+// _reset.scss
+
+html,
+body,
+ul,
+ol {
+   margin: 0;
+  padding: 0;
+}
+
+// basefile.scss
+
+@import 'reset';
+
+body {
+ font: 100% Helvetica, sans-serif;
+ background-color: #efefef;
+}
+
+And the corresponding CSS output:
+
+html, body, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 100% Helvetica, sans-serif;
+  background-color: #efefef;
+}
+ </pre></code>
+ <p><i>Note: When importing partials, you don't need to include the file extension or the underscore.</i></p>
+ <h2>Mixins</h2>
+ <p><b>One of the advantages of using preprocessors is their ability to take complex, long-winded code and simplify it. This is where mixins come in handy! </b></p>
+ For example, if you need to include the vendor prefixes, you can use a mixin instead. Take a look at this example for border-radius:
+ 
+ <pre><i>
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+ </pre></i>
+ <p>Notice the @mixin directive at the top. It has been given the name border-radius and uses the variable $radius as its parameter. This variable is used to set the radius value for each element. </p>
+ <p>Later, the @include directive is called, along with the mixin name (border-radius) and a parameter (10px). Thus .box { @include border-radius(10px); }.</p>
+ <p><b>The following CSS is produced:</b></p>
+ <pre><i>.box {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+}
+</pre></i>
+
+<h2>Extend/Inheritance</h2>
+<p>The @extend directive has been called one of Sass' most powerful features. After seeing it in action, it's clear why.</p>
+
+<p>The idea is that with this directive you won't have to include multiple class names on your HTML elements and can keep your code DRY (don't repeat yourself). Your selectors can inherit the styles of other selectors, and then be easily extended when required. Now that's powerful.<br>Operators</p>
+
+<p>Having the ability to perform calculations in your CSS allows you to do more, like convert pixel values into percentages. You'll have access to standard maths functions like addition, subtraction, multiplication and division. Of course, these functions can be combined to create complex calculations.</p>
+
+<p>In addition, Sass includes a few built-in functions to help manipulate numbers. Functions like percentage(), floor() and round() to name a few.</p>
+<h2> Tammy Coron</h2>
+<p><b>Tammy is an independent creative professional and the host of Roundabout: Creative Chaos. She’s also the owner of Just Write Code, an independent production company located in West Tennessee. For more information about Tammy, visit her website by clicking the icons above. </b></p>
   </body>
 </html>

@@ -3,8 +3,12 @@ background-coulor:yellow;
 }
 h1{
   color:blue:
-  margin-right:30px;
+  font-size: 40px;
 {
+h2 {
+color:orange:
+font-size: 30px;    
+}
 img {
   display: block;
   max-width: 100%;
